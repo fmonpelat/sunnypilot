@@ -20,3 +20,7 @@ if [ -z "$AGNOS_VERSION" ]; then
 fi
 
 export STAGING_ROOT="/data/safe_staging"
+
+# Haval Jolion HEV: FW fingerprinting doesn't identify the car, force the platform
+export FINGERPRINT="GWM_HAVAL_JOLION_HEV"
+export SKIP_FW_QUERY=1

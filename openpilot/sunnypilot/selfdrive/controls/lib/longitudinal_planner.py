@@ -8,6 +8,9 @@ See the LICENSE.md file in the root directory for more details.
 from openpilot.cereal import messaging, custom
 from opendbc.car import structs
 from openpilot.common.constants import CV
+from openpilot.common.params import Params
+from openpilot.common.realtime import DT_MDL
+from openpilot.sunnypilot import PARAMS_UPDATE_PERIOD
 from openpilot.selfdrive.car.cruise import V_CRUISE_MAX
 from openpilot.sunnypilot.selfdrive.controls.lib.e2e_alerts_helper import E2EAlertsHelper
 from openpilot.sunnypilot.selfdrive.controls.lib.smart_cruise_control.smart_cruise_control import SmartCruiseControl
@@ -32,6 +35,10 @@ class LongitudinalPlannerSP:
 
     self.output_v_target = 0.
     self.output_a_target = 0.
+
+    self.params = Params()
+    self.params_frame = 0
+    self.plan_long = self.params.get_bool("PlanLong")
 
   def update_targets(self, sm: messaging.SubMaster, v_ego: float, a_ego: float, v_cruise: float) -> tuple[float, float]:
     CS = sm['carState']
@@ -64,6 +71,9 @@ class LongitudinalPlannerSP:
     return self.output_v_target, self.output_a_target
 
   def update(self, sm: messaging.SubMaster) -> None:
+    self.params_frame += 1
+    if self.params_frame % int(PARAMS_UPDATE_PERIOD / DT_MDL) == 0:
+      self.plan_long = self.params.get_bool("PlanLong")
     self.events_sp.clear()
     self.e2e_alerts_helper.update(sm, self.events_sp)
 

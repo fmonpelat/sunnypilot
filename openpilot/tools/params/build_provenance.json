@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "baseCommit": "3b1816ae6c1521b91f98907e2034f7ef1bda8c8b",
+  "baseCommit": "26b7da53e64ba81a2f98eea24191c706d2a4d03e",
   "sourceTreeIncludesFeatureChanges": true,
   "builder": {
     "architecture": "native aarch64 Linux",
@@ -14,7 +14,7 @@
     "openpilot/common/params.h": "3c7b87d050c79275a401597dc7d15ae9fa57c2316c816ff5472cbdd84588a6e6",
     "openpilot/common/params.cc": "0074bdf766e9bf410f21820b8f730ed9403117c54725b6193176f28a14233737",
     "openpilot/common/params_c.cc": "7c3c86301ab3d65aa0eecc3f7b61c3baf4730baf72a9166cbb4de4237419a48d",
-    "openpilot/common/params_keys.h": "738e4fa928acbd2980a9aac590320f1b8bed4fe1a98ed06db45b890114f37fdc",
+    "openpilot/common/params_keys.h": "1884bbd57bfa98ab7230292e069f7e9aea4c81aede45edce94ed2735fc663a9e",
     "openpilot/common/queue.h": "f7c75c847ae63dfd6e864406e722248540a79908270e85ca2674b43407408fcf",
     "openpilot/common/timing.h": "66a580e240fa4fe4af03bc3073ddd0f4db5d1027720e8adfa92ba448f7c8bc71",
     "openpilot/common/util.cc": "4479ecf72465e8f453d8af78447f7715f02d9397c58a49048f2bbc87a96d6b8a",
@@ -57,7 +57,7 @@
   ],
   "rebuildTools": {
     "Dockerfile": "c60c96043ea7b6d8ad94ab4e9181033606ae35e4fb43e034ab38b7505d867cff",
-    "README.md": "65b95ef339e8a0183c7030cf759d042c128c0ba846080fecfb5c19740db1cda7",
+    "README.md": "ac2b563868aeea9dc5fa101b97d990b661d0fca428b566867b2a0688231ae5aa",
     "verify.py": "b068578579c1694c7b1594deca244917894ba43d69a80651058280c9a60a1b9f",
     "rebuild.py": "62f25ff2e6bd7daa9a635d6a6f49b7fdf03533370f2f75296d77003bed01d765"
   },
@@ -94,8 +94,8 @@
     ],
     "compiler": "g++ (Debian 12.2.0-14+deb12u1) 12.2.0",
     "machine": "aarch64",
-    "sha256": "4391c55759edb28c41987914e5b02c7fa3df7a4c499a884d67be1f1b16cac511",
-    "bytes": 4132776
+    "sha256": "abc2c0086d078521c63d8d028aa69ca681f1a9e50149c85600cc55908679154a",
+    "bytes": 4137880
   },
   "verification": {
     "originalTestMethods": [
@@ -181,7 +181,7 @@
       ]
     },
     "rebuilt": {
-      "sha256": "4391c55759edb28c41987914e5b02c7fa3df7a4c499a884d67be1f1b16cac511",
+      "sha256": "abc2c0086d078521c63d8d028aa69ca681f1a9e50149c85600cc55908679154a",
       "needed": [
         "libstdc++.so.6",
         "libgcc_s.so.1",
@@ -220,27 +220,39 @@
     "Original Params method bodies use isolated test-directory scaffolding and a logging stub.",
     "No model, steering, Tesla, cooperative steering, CAN or safety binaries were rebuilt."
   ],
-  "previousRegistryCompatibility": {
-    "originalKeyCount": 272,
-    "rebuiltKeyCount": 277,
-    "exactAddedKeys": [
-      "MapboxNextTurnEnabled",
-      "MapboxTurnContext",
-      "MapboxTurnCue",
-      "MapboxTurnIntent",
-      "MapboxTurnLeadDistance"
-    ],
-    "allOriginalNamesTypesDefaultsUnchanged": true,
-    "executionArchitecture": "nativeaarch64Linux"
-  },
+  "previousRegistryCompatibility": [
+    {
+      "originalKeyCount": 272,
+      "rebuiltKeyCount": 277,
+      "exactAddedKeys": [
+        "MapboxNextTurnEnabled",
+        "MapboxTurnContext",
+        "MapboxTurnCue",
+        "MapboxTurnIntent",
+        "MapboxTurnLeadDistance"
+      ],
+      "allOriginalNamesTypesDefaultsUnchanged": true,
+      "executionArchitecture": "nativeaarch64Linux"
+    },
+    {
+      "originalKeyCount": 277,
+      "rebuiltKeyCount": 278,
+      "exactAddedKeys": [
+        "NavModelState"
+      ],
+      "allOriginalNamesTypesDefaultsUnchanged": true,
+      "executionArchitecture": "nativeaarch64Linux",
+      "baselineCommit": "3b1816ae6c1521b91f98907e2034f7ef1bda8c8b"
+    }
+  ],
   "registryCompatibility": {
-    "originalKeyCount": 277,
-    "rebuiltKeyCount": 278,
+    "originalKeyCount": 278,
+    "rebuiltKeyCount": 279,
     "exactAddedKeys": [
-      "NavModelState"
+      "PlanLong"
     ],
     "allOriginalNamesTypesDefaultsUnchanged": true,
     "executionArchitecture": "nativeaarch64Linux",
-    "baselineCommit": "3b1816ae6c1521b91f98907e2034f7ef1bda8c8b"
+    "baselineCommit": "26b7da53e64ba81a2f98eea24191c706d2a4d03e"
   }
 }

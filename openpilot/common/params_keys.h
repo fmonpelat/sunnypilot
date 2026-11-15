@@ -25,7 +25,14 @@ inline static std::unordered_map<std::string, ParamKeyAttributes> keys = {
     {"CarParamsPersistent", {PERSISTENT, BYTES}},
     {"CarParamsPrevRoute", {PERSISTENT, BYTES}},
     {"CompletedTrainingVersion", {PERSISTENT, STRING, "0"}},
-    {"ControlsReady", {CLEAR_ON_MANAGER_START | CLEAR_ON_ONROAD_TRANSITION, BOOL}},
+    // ControlsReady and FirmwareQueryDone are also cleared on the offroad transition: pandad
+    // (PandaSafety::configureSafetyMode) sets the panda safety mode from CarParams as soon as both are true,
+    // and only once per onroad session. If the car is turned off and on again within a few seconds, the
+    // onroad-transition clear in manager can run after pandad has already read the previous route's values,
+    // so the panda kept the old safety param (e.g. alpha longitudinal on/off), selfdrived raised
+    // controlsMismatch and the panda blocked our ACC commands (LSS fault on the Haval Jolion).
+    // Clearing them when going offroad means pandad always waits for card to publish the new CarParams.
+    {"ControlsReady", {CLEAR_ON_MANAGER_START | CLEAR_ON_ONROAD_TRANSITION | CLEAR_ON_OFFROAD_TRANSITION, BOOL}},
     {"CurrentBootlog", {PERSISTENT, STRING}},
     {"CurrentRoute", {CLEAR_ON_MANAGER_START | CLEAR_ON_ONROAD_TRANSITION, STRING}},
     {"DisableDriverCameraIR", {CLEAR_ON_MANAGER_START | CLEAR_ON_ONROAD_TRANSITION, BOOL}},
@@ -40,7 +47,8 @@ inline static std::unordered_map<std::string, ParamKeyAttributes> keys = {
     {"DriverTooDistracted", {CLEAR_ON_MANAGER_START | CLEAR_ON_IGNITION_ON, BOOL}},
     {"DriverLockoutCount", {CLEAR_ON_MANAGER_START | CLEAR_ON_IGNITION_ON, INT, "0"}},
     {"AlphaLongitudinalEnabled", {PERSISTENT | DEVELOPMENT_ONLY | BACKUP, BOOL}},
-    {"FirmwareQueryDone", {CLEAR_ON_MANAGER_START | CLEAR_ON_ONROAD_TRANSITION, BOOL}},
+    // also cleared on the offroad transition, see ControlsReady above
+    {"FirmwareQueryDone", {CLEAR_ON_MANAGER_START | CLEAR_ON_ONROAD_TRANSITION | CLEAR_ON_OFFROAD_TRANSITION, BOOL}},
     {"ForcePowerDown", {PERSISTENT, BOOL}},
     {"GitBranch", {PERSISTENT, STRING}},
     {"GitCommit", {PERSISTENT, STRING}},

@@ -40,6 +40,8 @@ void PandaSafety::updateMultiplexingMode() {
 
 // TODO-SP: Use structs instead of vector
 std::vector<std::string> PandaSafety::fetchCarParams() {
+  // FirmwareQueryDone and ControlsReady are cleared on both the onroad and the offroad transition
+  // (common/params_keys.h), so after a quick car off/on they cannot be stale values from the previous route
   if (!params_.getBool("FirmwareQueryDone")) {
     return {};
   }
